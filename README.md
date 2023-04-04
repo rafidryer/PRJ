@@ -4,8 +4,8 @@
 
 This repository contains the code used for the final project along with the CSV files of the data used in the final analysis.
 
-There are 3 python scripts which require Python version 3.9+. 
-Run the following commands into the commandline to ensure the correct libraries are installed:
+There are 3 Python scripts which require Python version 3.9+. 
+Run the following commands into the command line to ensure the correct libraries are installed:
 
 ```
 pip install numpy
@@ -26,7 +26,7 @@ Note that `Max input size: 10^` can be a non-integer number. The number entered 
 The run-times will be plotted on graphs and stored in CSV files in the `results/` folder, named based on the parameters given by the user.
 
 To run the `hidden_constant_finder.py` script to plot a graph with the line of best fit and the upperbound of the data, enter the command:
-`python hidden_constantt_finder.py` and enter the name of the CSV file when prompted. Do not include the `.csv` file extension. 
+`python hidden_constant_finder.py` and enter the name of the CSV file when prompted. Do not include the `.csv` file extension. 
 Ensure the file is in the `results/` folder.
 
 To run the unit tests, run the command `python run_tests.py`.
