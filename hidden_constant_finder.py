@@ -9,6 +9,7 @@ from scipy.optimize import curve_fit
 def objective_constant(x, a):
     return 0*x+a
 
+
 # Define the objective function with O(n) time complexity.
 def objective_n(x, a):
     return x * a
@@ -28,6 +29,7 @@ def objective_n_log_n(x, a):
 def objective_n_squared(x, a):
     return x * a * x
 
+
 # Define the objective function with O(2^n) time complexity.
 def objective_exponential(x, a):
     return a ** x
@@ -42,8 +44,8 @@ def calculate_rmse(predictions, targets):
 def plot_curve_fit(x, y, objective, best_fit_coefficient, upper_bound_coefficient, shape, column_name, x0):
     fig = plt.figure()
     fig.suptitle(column_name)
-    plt.plot(x, y, label="Data") # plots actual data
-    #plots line of best fit
+    plt.plot(x, y, label="Data")  # plots actual data
+    # plots line of best fit
     x_line = np.arange(min(x), max(x), 1)
     y_line = objective(x_line, best_fit_coefficient)
     plt.plot(x_line, y_line, "--", color="red", label=f"Best fit: {str(round(best_fit_coefficient[0], 2))}*{shape}")
@@ -76,7 +78,7 @@ def find_parameters(x, y):
     # determine the smallest RMSE and return the corresponding parameters
     min_index = rmse_values.index(min(rmse_values))
     
-    #returns values depending on the time complexity of the data
+    # returns values depending on the time complexity of the data
     if min_index == 5:
         return "2^n", coefficient_values[min_index], objectives[min_index]
     elif min_index == 4:
@@ -96,17 +98,21 @@ def find_upper_bound(x, y, bigO):
     for x_val, y_val in zip(x, y):
         # finds the coefficient for that one data point
         calculated_coefficient = y_val / bigO(x_val, 1)
-        #ensures the data point is within the upper bound
+        # ensures the data point is within the upper bound
         if calculated_coefficient > upper_bound:
             upper_bound = calculated_coefficient
     return upper_bound
 
 
 def format_data():
-    file_name = input("Enter file name: ")
-    title = file_name[:file_name.find("_")]
-    url = os.path.join(os.getcwd(), "results", f"{file_name}.csv")
-    return title, pd.read_csv(url)
+    while True:
+        file_name = input("Enter file name: ")
+        try:
+            title = file_name[:file_name.find("_")]
+            url = os.path.join(os.getcwd(), "results", f"{file_name}.csv")
+            return title, pd.read_csv(url)
+        except FileNotFoundError:
+            print(f"File not found in {os.getcwd()}\\results, please try again")
 
 
 # Main function that fits O(n^2) and O(n*log(n)) curves to data.
@@ -126,7 +132,7 @@ def main():
         twenty_percent_mark = len(x) // 5
         coefficient2 = find_upper_bound(x[twenty_percent_mark:], y[twenty_percent_mark:], objective)
 
-        plot_curve_fit(x, y, objective, coefficient, coefficient2, shape, title + " " +column, x[twenty_percent_mark])
+        plot_curve_fit(x, y, objective, coefficient, coefficient2, shape, title + " " + column, x[twenty_percent_mark])
     plt.show()
 
 

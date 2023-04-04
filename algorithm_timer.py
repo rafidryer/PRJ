@@ -4,8 +4,6 @@ import datetime
 import os
 import time
 from collections import defaultdict
-from multiprocessing import Pool, freeze_support
-from statistics import mean
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,10 +24,10 @@ def generate_array(order, input_size):
 
 
 def time_sorting_algorithm(order_name, input_size, algo_name, *args):
-    is_sorted, functions = setup() # gets access to the C library
+    is_sorted, functions = setup()  # gets access to the C library
 
-    algo = functions[algo_name] # finds the C function
-    parameter_array = generate_array(order_name, input_size) # generates the input array
+    algo = functions[algo_name]  # finds the C function
+    parameter_array = generate_array(order_name, input_size)  # generates the input array
 
     # times how long it takes to run the algorithm
     start = time.perf_counter_ns()
@@ -42,6 +40,7 @@ def time_sorting_algorithm(order_name, input_size, algo_name, *args):
 
     return end - start
 
+
 def average_runtime_calculator(algo_name, order, repeats, input_sizes):
     total_times_dict = defaultdict(int)
     for repeat in range(repeats):
@@ -53,7 +52,7 @@ def average_runtime_calculator(algo_name, order, repeats, input_sizes):
 
     list_of_times = []
     for total_time_taken in total_times_dict.values():
-        list_of_times.append(total_time_taken / repeats) # calculates the average runtime
+        list_of_times.append(total_time_taken / repeats)  # calculates the average runtime
     return list_of_times
 
 
@@ -175,7 +174,6 @@ def user_input():
 
 
 if __name__ == '__main__':
-    freeze_support()
 
     _, functions_names_to_c_functions_map = setup()
     orders = ["Reverse", "Random", "Pre-sorted"]
