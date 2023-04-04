@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 
-# Define the objective function with O(n*log(n)) time complexity.
+# Define the objective function with O(1) time complexity.
 def objective_constant(x, a):
     return 0*x+a
 
-# Define the objective function with O(n^2) time complexity.
+# Define the objective function with O(n) time complexity.
 def objective_n(x, a):
     return x * a
 
 
-# Define the objective function with O(n*log(n)) time complexity.
+# Define the objective function with O(log(n)) time complexity.
 def objective_n_log(x, a):
     return a * np.log(x)
 
@@ -28,7 +28,7 @@ def objective_n_log_n(x, a):
 def objective_n_squared(x, a):
     return x * a * x
 
-# Define the objective function with O(n^2) time complexity.
+# Define the objective function with O(2^n) time complexity.
 def objective_exponential(x, a):
     return a ** x
 
